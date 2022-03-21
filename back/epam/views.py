@@ -1,12 +1,8 @@
-from unicodedata import decimal
-
-import requests, json, datetime
+import requests, datetime
 from django.http import HttpResponse, JsonResponse
-from rest_framework import viewsets
 from epam.models import *
 from epam.serializers import CountrySerializer, StatSerializer
 from rest_framework import generics
-from django.shortcuts import get_list_or_404, get_object_or_404
 
 def index(request):
     print('INDEX')
@@ -28,14 +24,7 @@ class Stat_list(generics.ListAPIView):
 
 def data_from_api(request):
     response = requests.get('https://covidtrackerapi.bsg.ox.ac.uk/api/v2/stringency/date-range/2022-03-10/2022-04-12')
-    # print(response.json())
-    code = Country.objects.get(country_code__exact='USA')
-    # print(code)
-    # data_test = Stat.objects.get(country_code__exact=code)
-    # print(data_test)
-    # data = response.json().loads()
     data = response.json()
-    # print(data['data'])
     result_data = data['data']
     for country in data['countries']:
         obj, created = Country.objects.get_or_create(
