@@ -1,1 +1,14 @@
-/back/epam/migrations/
+#Миграции БД
+back/epam/migrations/
+
+# Дефолтная база
+back/db.sqlite3
+back/identifier.sqlite
+
+# Файлы созданныее IDE и OS
+.DS_Store
+back/.DS_Store
+back/.idea/
+
+# Данные БД [будут тут)]
+back/data/
