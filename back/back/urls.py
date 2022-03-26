@@ -20,5 +20,4 @@ from epam import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('epam.urls')),
-    path('api-auth/', include('rest_framework.urls'))
 ]
