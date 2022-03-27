@@ -40,29 +40,33 @@ class Stat_list(generics.ListAPIView):
         return Response(query)
 
 def data_from_api(request):
-    response = requests.get('https://covidtrackerapi.bsg.ox.ac.uk/api/v2/stringency/date-range/2022-03-10/2022-04-12')
+    list_countries = ['RUS', 'USA', 'ARM', 'DEU', 'CAN', 'CZE', 'ISR', 'JPN', 'ITA', 'SWE']
+
+    response = requests.get('https://covidtrackerapi.bsg.ox.ac.uk/api/v2/stringency/date-range/2022-03-10/2022-03-11')
     data = response.json()
     result_data = data['data']
-    for country in data['countries']:
-        obj, created = Country.objects.get_or_create(
-            country_code=country,
-        )
+
     for date in data['data']:
         for countries in data['data'][date]:
-            cou = Country.objects.get(country_code=countries)
-            # print("---",data['data'][date][countries],"---")
-            date_cou = datetime.datetime.strptime(data['data'][date][countries]['date_value'], "%Y-%m-%d")
-            obj, created = Stat.objects.get_or_create(
-                country_code=cou,
-                date_value=date_cou,
-            )
-            if created:
-                obj.confirmed = data['data'][date][countries]['confirmed']
-                obj.deaths = data['data'][date][countries]['deaths']
-                obj.stringency_actual = data['data'][date][countries]['stringency_actual']
-                obj.stringency = data['data'][date][countries]['stringency']
-                obj.stringency_legacy = data['data'][date][countries]['stringency_legacy']
-                obj.stringency_legacy_disp = data['data'][date][countries]['stringency_legacy_disp']
-                obj.save()
-
+            if countries in list_countries:
+                cou = Country.objects.get(country_code=countries)
+                # print("---",data['data'][date][countries],"---")
+                date_cou = datetime.datetime.strptime(data['data'][date][countries]['date_value'], "%Y-%m-%d")
+                obj, created = Stat.objects.get_or_create(
+                    country_code=cou,
+                    date_value=date_cou,
+                )
+                if created:
+                    obj.confirmed = data['data'][date][countries]['confirmed']
+                    obj.deaths = data['data'][date][countries]['deaths']
+                    obj.stringency_actual = data['data'][date][countries]['stringency_actual']
+                    obj.stringency = data['data'][date][countries]['stringency']
+                    obj.stringency_legacy = data['data'][date][countries]['stringency_legacy']
+                    obj.stringency_legacy_disp = data['data'][date][countries]['stringency_legacy_disp']
+                    obj.save()
+            else: pass
+    clist = Country.objects.all()
+    for c in clist:
+        c.count_data = Stat.objects.filter(country_code=c).count()
+        c.save()
     return HttpResponse(200)
