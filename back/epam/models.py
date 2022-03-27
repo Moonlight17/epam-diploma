@@ -3,6 +3,7 @@ from django.db import models
 class Country(models.Model):
     country_code = models.CharField(max_length=200)
     pub_date = models.DateTimeField('date added', auto_now_add=True)
+    count_data = models.PositiveIntegerField(null=True, blank=True)
 
     def __str__(self):
         return self.country_code
