@@ -11,4 +11,4 @@ back/.DS_Store
 back/.idea/
 
 # Данные БД [будут тут)]
-back/data/
+data/
