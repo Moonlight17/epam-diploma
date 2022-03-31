@@ -1,13 +1,14 @@
 import requests, datetime, json
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse
 from epam.models import *
 from epam.serializers import CountrySerializer, StatSerializer
 from rest_framework.response import Response
 from rest_framework import generics
+from django.shortcuts import render
 
 def index(request):
     print('INDEX')
-    return HttpResponse("Hello, world. You're at the polls index.")
+    return render(request, 'index.html')
 
 
 class Country_list(generics.ListAPIView):
@@ -46,6 +47,10 @@ def data_from_api(request):
     data = response.json()
     result_data = data['data']
 
+    for countries in list_countries:
+        cou, created = Country.objects.get_or_create(country_code=countries)
+        # print(countries,'-----------', created)
+    countries = ''
     for date in data['data']:
         for countries in data['data'][date]:
             if countries in list_countries:
