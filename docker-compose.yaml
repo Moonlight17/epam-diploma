@@ -1,0 +1,37 @@
+version: '3.9'
+
+services:
+    db:
+        image: postgres:14-alpine
+#        command: postgres -c listen_addresses='*'
+        restart: always
+        volumes:
+            - ./data/db:/var/lib/postgresql/data
+        ports: 
+            - 5432:5432
+        environment: 
+            - POSTGRES_PASSWORD=1q2w3e4r
+            - POSTGRES_USER=postgres
+            - POSTGRES_DB=postgres
+#            - ALLOW_IP_RANGE=0.0.0.0/0
+    backend:
+        build: .
+        command: python3 manage.py runserver 0.0.0.0:8000
+        restart: always
+        ports: 
+            - 8000:8000
+        environment:
+            - POSTGRES_NAME=postgres
+            - POSTGRES_USER=postgres
+            - POSTGRES_PASSWORD=1q2w3e4r
+            - DATABASE_HOST=db
+            - DATABASE_PORT=5432
+        depends_on:
+            - db
+#    web:
+#        build: ../front
+#        restart: always
+#        ports:
+#            - 8080:8080
+#        depends_on:
+#            - backend
