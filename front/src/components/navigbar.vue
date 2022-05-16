@@ -4,7 +4,7 @@
       <b-navbar type="dark" variant="dark" class="nav">
         <b-navbar-brand tag="h1" class="mb-0">Serov</b-navbar-brand>
         <b-navbar-nav>
-          <b-button v-b-modal.modal-1 variant="link">Изменить список стран</b-button>
+          <b-button v-b-modal.modal-1 variant="link" @click="$parent.vibor()">Change the list of countries</b-button>
 <!--          <b-nav-item href="#">Link</b-nav-item>-->
 <!--          <b-nav-item href="#" disabled>Disabled</b-nav-item>-->
         </b-navbar-nav>
@@ -31,15 +31,6 @@ export default {
   data(){
     return{
       list_countries:null,
-      options: [
-        { value: 'a', text: 'This is First option' },
-        { value: 'b', text: 'Default Selected Option' },
-        { value: 'c', text: 'This is another option' },
-        { value: 'd', text: 'This one is disabled', disabled: true },
-        { value: 'e', text: 'This is option e' },
-        { value: 'f', text: 'This is option f' },
-        { value: 'g', text: 'This is option g' }
-      ],
       selected: [],
     }
   }
