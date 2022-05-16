@@ -1,14 +1,23 @@
 #Миграции БД
-back/epam/migrations/
+**/migrations/*
 
-# Дефолтная база
-back/db.sqlite3
-back/identifier.sqlite
 
 # Файлы созданныее IDE и OS
 .DS_Store
-back/.DS_Store
-back/.idea/
+**/.idea/*
+**/dist/*
+**/node_modules/*
 
 # Данные БД [будут тут)]
 data/
+
+
+# Local .terraform directories
+**/.terraform/*
+
+# .tfstate files
+*.tfstate
+*.tfstate.*
+*.tfvars
+*.tfvars.json
+# front/node_modules/.cache/babel-loader/659c0029a5511f675d8fec512db8989c.json
