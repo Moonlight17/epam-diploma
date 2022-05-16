@@ -1,4 +1,4 @@
-import requests, datetime, json
+import requests, datetime, json, datetime
 from django.http import HttpResponse
 from epam.models import *
 from epam.serializers import CountrySerializer, StatSerializer
@@ -41,21 +41,20 @@ class Stat_list(generics.ListAPIView):
         return Response(query)
 
 def data_from_api(request):
-    list_countries = ['RUS', 'USA', 'ARM', 'DEU', 'CAN', 'CZE', 'ISR', 'JPN', 'ITA', 'SWE']
-
-    response = requests.get('https://covidtrackerapi.bsg.ox.ac.uk/api/v2/stringency/date-range/2022-03-10/2022-03-11')
+    start_date = str(datetime.datetime.now().year) + '#01#01'
+    start_date = start_date.replace('#','-')
+    cur_date = str(datetime.datetime.now().year) + '#' + str(datetime.datetime.now().month) + '#' + str(datetime.datetime.now().day)
+    cur_date = cur_date.replace('#','-')
+    list_countries = ['RUS', 'USA', 'KAZ', 'DEU', 'CAN', 'CZE', 'ISR', 'JPN', 'ITA', 'SWE']
+    response = requests.get('https://covidtrackerapi.bsg.ox.ac.uk/api/v2/stringency/date-range/' + start_date+ '/' + cur_date)
     data = response.json()
-    result_data = data['data']
-
     for countries in list_countries:
         cou, created = Country.objects.get_or_create(country_code=countries)
-        # print(countries,'-----------', created)
     countries = ''
     for date in data['data']:
         for countries in data['data'][date]:
             if countries in list_countries:
                 cou = Country.objects.get(country_code=countries)
-                # print("---",data['data'][date][countries],"---")
                 date_cou = datetime.datetime.strptime(data['data'][date][countries]['date_value'], "%Y-%m-%d")
                 obj, created = Stat.objects.get_or_create(
                     country_code=cou,
