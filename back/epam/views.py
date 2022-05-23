@@ -3,12 +3,17 @@ from django.http import HttpResponse
 from epam.models import *
 from epam.serializers import CountrySerializer, StatSerializer
 from rest_framework.response import Response
+from rest_framework import status
 from rest_framework import generics
 from django.shortcuts import render
 
 def index(request):
     print('INDEX')
     return render(request, 'index.html')
+
+def health(request):
+    return HttpResponse(status=200)
+
 
 
 class Country_list(generics.ListAPIView):

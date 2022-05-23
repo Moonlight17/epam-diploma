@@ -10,4 +10,5 @@ urlpatterns = [
     # path('<int:pk>/', views.DetailStat.as_view(), name='detail'),
     path('country/', views.Country_list.as_view(), name='country'),
     path('stat/', views.Stat_list.as_view(), name='stat'),
+    path('api/v1/healthz', views.health, name='health')
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
