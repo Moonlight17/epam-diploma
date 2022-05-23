@@ -1,10 +1,10 @@
 # build stage
 FROM node:12-alpine as build-stage
 WORKDIR /vue
-COPY ./front/package*.json .
+COPY ./front/package*.json ./
 RUN npm install
 # ENV VUE_APP_URL=qwert
-COPY ./front/ .
+COPY ./front/ ./
 RUN npm run build
 
 
@@ -34,8 +34,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 
 # copy project
-COPY ./back/ .
-# COPY ./front/dist/ .
+COPY ./back/ ./
+# COPY ./front/dist/ ./
 EXPOSE 8000
 
 
