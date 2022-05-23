@@ -1,10 +1,10 @@
 # build stage
-FROM node:latest as build-stage
+FROM node:12-alpine as build-stage
 WORKDIR /vue
-COPY ./front/package*.json ./
+COPY ./front/package*.json .
 RUN npm install
-COPY ./front/ ./
-COPY ./front/src/ ./src/
+# ENV VUE_APP_URL=qwert
+COPY ./front/ .
 RUN npm run build
 
 
@@ -16,6 +16,11 @@ WORKDIR /app
 # set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
+ENV POSTGRES_NAME=postgres
+ENV POSTGRES_USER=postgres
+ENV POSTGRES_PASSWORD=1q2w3e4r
+ENV DATABASE_HOST=postgres-diploma-rds.chao43ndm64b.eu-central-1.rds.amazonaws.com
+ENV DATABASE_PORT=5432
 
 # install psycopg2 dependencies
 RUN apk update \
@@ -30,14 +35,15 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # copy project
 COPY ./back/ .
+# COPY ./front/dist/ .
 EXPOSE 8000
 
 
 # production stage
-COPY --from=build-stage /vue/dist /app
+COPY --from=build-stage /vue/dist /app/
 
 # CMD ["python", "manage.py", "makemigrations", "epam"]
 # CMD ["python", "manage.py", "migrate", "epam"]
 
 
-CMD ["python", "manage.py", "runserver", "8000"]
+CMD /bin/sh /app/docker-entrypoint.sh
