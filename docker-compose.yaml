@@ -15,8 +15,10 @@ services:
             - POSTGRES_DB=postgres
 #            - ALLOW_IP_RANGE=0.0.0.0/0
     backend:
-        build: .
-        command: python3 manage.py runserver 0.0.0.0:8000
+        image: moonlight234/epam_back:latest
+        build:
+            context: ./back
+            dockerfile: Dockerfile
         restart: always
         ports: 
             - 8000:8000
@@ -24,14 +26,17 @@ services:
             - POSTGRES_NAME=postgres
             - POSTGRES_USER=postgres
             - POSTGRES_PASSWORD=1q2w3e4r
-            - DATABASE_HOST=db
+            - DATABASE_HOST=postgres-diploma-rds.chao43ndm64b.eu-central-1.rds.amazonaws.com
             - DATABASE_PORT=5432
         depends_on:
             - db
-#    web:
-#        build: ../front
-#        restart: always
-#        ports:
-#            - 8080:8080
-#        depends_on:
-#            - backend
+    web:
+        image: moonlight234/epam_front:latest
+        build:
+            context: ./front
+            dockerfile: Dockerfile
+        restart: always
+        ports:
+            - 8080:80
+        depends_on:
+            - backend
