@@ -6,6 +6,8 @@
 .DS_Store
 **/.idea/*
 **/dist/*
+**/static/*
+**/templates/*
 **/node_modules/*
 
 # Данные БД [будут тут)]
