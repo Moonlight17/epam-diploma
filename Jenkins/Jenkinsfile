@@ -1,0 +1,31 @@
+pipeline {
+    environment {
+        registry = "moonlight234/epam_full"
+        registryCredential = 'Docker_moonlight234'
+        dockerImage = ''
+    }
+    agent any
+    stages {
+        stage('Cloning Git') {
+            steps {
+                git 'https://github.com/Moonlight17/epam-diploma.git'
+            }
+        }
+        stage('Building image') {
+            steps{
+                script {
+                customImage = docker.build(registry + ":$BUILD_NUMBER", "--network host .")
+                }
+            }
+        }
+        stage('Deploy Image') {
+            steps{
+                script {
+                    docker.withRegistry( '', registryCredential ) {
+                        customImage.push()
+                    }
+                }
+            }
+        }
+    }
+}
