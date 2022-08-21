@@ -1,0 +1,8 @@
+deployment:
+   registryBackend: "moonlight234/epam_back:"
+   registryFrontend: "moonlight234/epam_front:"
+   namespace: "prod"
+   dbpass: "1q2w3e4r"
+   rdsendpoint: "postgres-diploma-rds.chao43ndm64b.eu-central-1.rds.amazonaws.com"
+   frontTag: "latest"
+   backTag: "latest"
