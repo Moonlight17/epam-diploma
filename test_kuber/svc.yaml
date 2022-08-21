@@ -1,0 +1,30 @@
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: django
+#   namespace: default
+# spec:
+#   selector:
+#     app: django
+#     tier: django
+#   ports:
+#   - name: backend
+#     protocol: TCP
+#     port: 80
+#     targetPort: 8000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: lb-app
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-connection-idle-timeout: "240"
+spec:
+  type: LoadBalancer
+  selector:
+    app: django
+    name: web
+  ports:
+    - port: 8000
+      targetPort: 8000
+

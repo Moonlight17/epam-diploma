@@ -1,0 +1,6 @@
+for i in {1..5000000}
+do
+#    wget -S http://localhost:62937/data/
+    curl localhost:62937/stat
+done
+    # ping -m http://localhost:62937/
