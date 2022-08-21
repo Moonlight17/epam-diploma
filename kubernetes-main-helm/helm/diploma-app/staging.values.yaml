@@ -1,0 +1,8 @@
+deployment:
+   registryBackend: "registry.gitlab.com/my-epam-diploma/backend:"
+   registryFrontend: "registry.gitlab.com/my-epam-diploma/frontend:"
+   namespace: "staging"
+   dbpass: __DBPASS__
+   rdsendpoint: __RDSENDPOINT__
+   frontTag: "latest"
+   backTag: "latest"
