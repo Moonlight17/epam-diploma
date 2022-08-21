@@ -14,7 +14,14 @@ pipeline {
         stage('Building image') {
             steps{
                 script {
-                customImage = docker.build(registry + ":$BUILD_NUMBER", "--network host .")
+                customImage = docker.build(registry + ":latest", "--network host .")
+                }
+            }
+        }
+        stage('Testing image') {
+            steps{
+                script {
+                customImage = docker.build(registry + ":latest", "--network host .")
                 }
             }
         }
