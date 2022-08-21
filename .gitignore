@@ -23,3 +23,5 @@ data/
 *.tfvars
 *.tfvars.json
 # front/node_modules/.cache/babel-loader/659c0029a5511f675d8fec512db8989c.json
+
+.kube/
