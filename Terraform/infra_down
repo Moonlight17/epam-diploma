@@ -1,0 +1,17 @@
+pwd
+# echo "Start Route53"
+# cd ./Route53
+# terraform destroy -auto-approve
+
+# echo "Start NodeGroups"
+# cd ../nodegroups
+# terraform destroy -auto-approve
+
+echo "Start RDS"
+cd ./RDS
+terraform destroy -auto-approve
+
+
+echo "Start EKS"
+cd ../EKS
+terraform destroy -auto-approve

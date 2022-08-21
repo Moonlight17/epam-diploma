@@ -1,0 +1,16 @@
+pwd
+echo "Start EKS"
+cd ./EKS
+terraform apply -auto-approve
+
+echo "Start RDS"
+cd ../RDS
+terraform apply -auto-approve
+
+# echo "Start NodeGroups"
+# cd ../nodegroups
+# terraform apply -auto-approve
+
+# echo "Start Route53"
+# cd ../Route53
+# terraform apply -auto-approve
