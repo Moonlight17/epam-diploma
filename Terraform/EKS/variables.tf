@@ -2,6 +2,10 @@ variable "region" {
   default     = "eu-central-1"
   description = "AWS region"
 }
+variable "profile" {
+  default     = "dev-backup"
+  description = "AWS Profile"
+}
 
 variable "min_size" {
   default     = 1

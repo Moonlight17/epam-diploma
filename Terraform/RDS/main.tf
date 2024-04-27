@@ -8,15 +8,16 @@ terraform {
 
 provider "aws" {
   region = var.region
+  profile = var.profile
 }
 
 data "terraform_remote_state" "eks" {
-  backend = "s3"
-  config = {
-    bucket = "my-epam-diploma-bucket-serov"
-    key = "tf-states/eks-state.tfstate"
-    region = var.region
-  }
+  # backend = "s3"
+  # config = {
+  #   bucket = "my-epam-diploma-bucket-serov"
+  #   key = "tf-states/eks-state.tfstate"
+  #   region = var.region
+  # }
 }
 
 

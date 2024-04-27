@@ -1,13 +1,14 @@
 terraform {
-  backend "s3" {
-    bucket = "my-epam-diploma-bucket-serov"
-    key    = "tf-states/eks-state.tfstate"
-    region = "eu-central-1"
-  }
+  # backend "s3" {
+  #   bucket = "my-epam-diploma-bucket-serov"
+  #   key    = "tf-states/eks-state.tfstate"
+  #   region = "eu-central-1"
+  # }
 }
 
 provider "aws" {
   region = var.region
+  profile = var.profile
 }
 
 
